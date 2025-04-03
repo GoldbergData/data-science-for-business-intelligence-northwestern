@@ -1,6 +1,6 @@
-# ML Course Docker Environment
+# Data Science for Business Intelligence - Northwestern
 
-This Docker container encapsulates the ML environment for your assignments. It uses a conda environment built from a YAML file and installs Jupyter Notebook for interactive work.
+This repository provides a complete, reproducible Docker-based environment for the Northwestern Data Science for Business Intelligence course. The goal is to allow students to complete assignments in a clean, preconfigured environment without installing libraries on their local system.
 
 ## Folder Structure
 
