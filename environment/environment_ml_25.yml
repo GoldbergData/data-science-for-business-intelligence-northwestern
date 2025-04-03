@@ -1,0 +1,9 @@
+name: ml_25
+channels:
+  - defaults
+dependencies:
+  - python=3.10.12
+  - pip
+  - pip:
+      - -r requirements.txt
+ 
