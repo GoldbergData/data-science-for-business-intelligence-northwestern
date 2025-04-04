@@ -1,1 +1,19 @@
+# Ignore Jupyter Notebook checkpoints
+**/.ipynb_checkpoints/
+
+# Ignore everything in the assignments directory except notebooks
+assignments/*
+!assignments/**/*.ipynb
+
+# Ignore virtual environments
+ml_25/
+.env/
+.venv/
+.python-version
+
+# Ignore OS & editor files
+.DS_Store
+*.swp
+
+# Ignore utility scripts
 create_github_repo.sh

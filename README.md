@@ -1,74 +1,88 @@
 # Data Science for Business Intelligence - Northwestern
 
-This repository provides a complete, reproducible Docker-based environment for the Northwestern Data Science for Business Intelligence course. The goal is to allow students to complete assignments in a clean, preconfigured environment without installing libraries on their local system.
+This repository provides the full Python environment and assignment materials for the Northwestern Data Science for Business Intelligence Spring 2025 course.
+
+Students can choose **one of two options** to set up their development environment:
+
+---
+
+## Option 1: Using Conda (Recommended for Simplicity)
+
+If you already have Conda installed (e.g. via Anaconda or Miniconda), you can create the environment using the provided `environment/environment_ml_25.yml`.
+
+### Steps:
+
+```bash
+conda env create -f environment/environment_ml_25.yml
+conda activate ml_25
+pip install -r environment/requirements.txt
+```
+
+---
+
+## Option 2: Using pyenv + Python Virtual Environment
+
+If you want more control over your Python setup, use the `setup.sh` script, which:
+
+- Installs Python 3.10.12 via `pyenv` (if not already installed)
+- Creates a `venv`-based virtual environment in `ml_25/`
+- Installs dependencies from `requirements.txt`
+
+### Prerequisites:
+
+- [pyenv](https://github.com/pyenv/pyenv) installed and working
+- Python build dependencies (use `brew install openssl readline sqlite3 xz zlib` on macOS)
+
+### Run the script:
+
+```bash
+./setup.sh
+source ml_25/bin/activate
+```
+
+---
 
 ## Folder Structure
 
-    data-science-for-business-intelligence-northwestern/
-    ├── Dockerfile
-    ├── README.txt
-    ├── environment/
-    │   ├── environment_ml_25.yml
-    │   └── requirements.txt
-    └── assignments/
-        └── assignment1.ipynb
+```
+data-science-for-business-intelligence-northwestern/
+├── Dockerfile                # (Optional) Docker setup
+├── README.md                 # This file
+├── environment/
+│   ├── environment_ml_25.yml # Conda environment definition
+│   └── requirements.txt      # Pip dependencies
+├── setup.sh                  # Script to set up venv using pyenv
+└── assignments/
+    └── assignment1.ipynb     # Course notebooks
+```
 
-> **Note:**  
-> - The `environment_ml_25.yml` file defines the conda environment (including the Python version and dependencies).  
-> - The `requirements.txt` file includes additional pip packages.  
-> - The `assignments/` folder contains your Jupyter notebooks.
+---
 
-## Prerequisites
+## 🐳 Optional: Running via Docker
 
-- [Docker Desktop](https://www.docker.com/products/docker-desktop) installed on your system.
-- Docker must be configured to use Linux containers (this is the default on macOS and Windows).
+If you'd rather use Docker for full isolation:
 
-## Building the Docker Image
+```bash
+docker build -t ml-course-yuri .
+docker run -it -p 8888:8888 ml-course-yuri
+```
 
-1. Open a terminal and navigate to the root directory of the project (where the Dockerfile is located).
+Once launched, open the printed Jupyter link (with token) in your browser.
 
-2. Run the following command to build the Docker image:
+---
 
-    ```bash
-    docker build -t ml-course-yuri .
-    ```
+## Notes
 
-    This command will:
-    - Use the official Miniconda base image.
-    - Set up the working directory.
-    - Copy the environment files and assignments into the container.
-    - Create the conda environment as defined in `environment_ml_25.yml` (with pip dependencies from `requirements.txt`).
-    - Install Jupyter Notebook if it is not already installed.
-    - Expose port 8888 for Jupyter Notebook.
+- If using an M1/M2/M3 Mac, `tensorflow` may need to be swapped with `tensorflow-macos` for compatibility.
+- All dependencies are listed in `requirements.txt`. You can modify or update them if needed.
 
-## Running the Docker Container
+---
 
-Once the image is built, run the container using:
+## Virtual Environment Activation
 
-    ```bash
-    docker run -it -p 8888:8888 ml-course-yuri
-    ```
+To activate the environment in the future:
 
-- The `-it` flag runs the container in interactive mode.
-- The `-p 8888:8888` flag maps port 8888 in the container to port 8888 on your host, allowing you to access Jupyter Notebook via your browser.
-
-After running the container, you will see output similar to:
-
-    ```
-    [I 18:42:31.123 NotebookApp] Serving notebooks from local directory: /app/assignments
-    [I 18:42:31.123 NotebookApp] The Jupyter Notebook is running at:
-    [I 18:42:31.123 NotebookApp] http://0.0.0.0:8888/?token=...
-    ```
-
-Copy the URL (including the token) from the output and paste it into your web browser to access your notebooks.
-
-## Additional Notes
-
-- **TensorFlow Version:**  
-  If you encounter issues with TensorFlow on Linux arm64, ensure that your `requirements.txt` pins a compatible version (e.g., use `tensorflow==2.11.0` instead of `2.11.1`).
-
-- **Modifying the Environment:**  
-  If you need to update dependencies, modify the `environment_ml_25.yml` and/or `requirements.txt` files and rebuild the Docker image.
-
-- **Stopping the Container:**  
-  To stop the container, press `Ctrl+C` in the terminal where it’s running, or run `docker stop <container_id>` from another terminal.
+```bash
+source ml_25/bin/activate  # if using venv
+conda activate ml_25       # if using conda
+```
