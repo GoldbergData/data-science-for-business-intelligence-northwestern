@@ -4,7 +4,7 @@ This repository provides a complete, reproducible Docker-based environment for t
 
 ## Folder Structure
 
-    machine-learning-yuri/
+    data-science-for-business-intelligence-northwestern/
     ├── Dockerfile
     ├── README.txt
     ├── environment/
