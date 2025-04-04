@@ -1,16 +1,35 @@
 # Data Science for Business Intelligence - Northwestern
 
-This repository provides the full Python environment and assignment materials for the Northwestern Data Science for Business Intelligence Spring 2025 course.
+This repository provides the full Python environment and directory structure for the Spring 2025 Northwestern course: **Data Science for Business Intelligence**.
 
-Students can choose **one of two options** to set up their development environment:
+You can set up your development environment in one of three ways:
+
+1. Conda (Recommended for simplicity)
+2. pyenv + Python virtual environment
+3. Docker (Optional, for isolation)
 
 ---
 
-## Option 1: Using Conda (Recommended for Simplicity)
+## Folder Structure
 
-If you already have Conda installed (e.g. via Anaconda or Miniconda), you can create the environment using the provided `environment/environment_ml_25.yml`.
+```
+data-science-for-business-intelligence-northwestern/
+├── Dockerfile                # Optional Docker setup
+├── README.md                 # This file
+├── setup.sh                  # Setup script using pyenv + venv
+├── environment/
+│   ├── environment_ml_25.yml # Conda environment definition
+│   └── requirements.txt      # Additional pip packages
+└── assignments/              # Place your Jupyter notebooks here
+```
 
-### Steps:
+---
+
+## Option 1: Using Conda (Recommended)
+
+Install **Anaconda** or **Miniconda**. I prefer Miniconda because it is more light-weight. You can install Miniconda [here](https://www.anaconda.com/docs/getting-started/miniconda/install).
+
+### macOS or Windows:
 
 ```bash
 conda env create -f environment/environment_ml_25.yml
@@ -20,69 +39,75 @@ pip install -r environment/requirements.txt
 
 ---
 
-## Option 2: Using pyenv + Python Virtual Environment
+## Option 2: Using pyenv + venv (Advanced / Manual)
 
-If you want more control over your Python setup, use the `setup.sh` script, which:
+This approach gives you more control over your Python setup. The provided `setup.sh` will:
 
-- Installs Python 3.10.12 via `pyenv` (if not already installed)
-- Creates a `venv`-based virtual environment in `ml_25/`
-- Installs dependencies from `requirements.txt`
+- Use `pyenv` or `pyenv-win` to install **Python 3.10.12**
+- Create a **venv-based** environment called `ml_25`
+- Install all required packages from `requirements.txt`
 
-### Prerequisites:
+### macOS Setup:
 
-- [pyenv](https://github.com/pyenv/pyenv) installed and working
-- Python build dependencies (use `brew install openssl readline sqlite3 xz zlib` on macOS)
+1. Install `pyenv` and Python build tools:
 
-### Run the script:
+```bash
+brew install pyenv
+brew install openssl readline sqlite3 xz zlib
+```
+
+2. Install Python 3.10.12 and run the setup script:
 
 ```bash
 ./setup.sh
 source ml_25/bin/activate
 ```
 
+### Windows Setup:
+
+1. Follow the [pyenv-win installation guide](https://github.com/pyenv-win/pyenv-win#installation)
+
+2. Open PowerShell or Command Prompt and run:
+
+```powershell
+pyenv install 3.10.12
+pyenv global 3.10.12
+python -m venv ml_25
+ml_25\Scripts\activate
+pip install --upgrade pip setuptools wheel
+pip install -r environment\requirements.txt
+```
+
 ---
 
-## Folder Structure
+## Option 3: Using Docker (Optional)
 
-```
-data-science-for-business-intelligence-northwestern/
-├── Dockerfile                # (Optional) Docker setup
-├── README.md                 # This file
-├── environment/
-│   ├── environment_ml_25.yml # Conda environment definition
-│   └── requirements.txt      # Pip dependencies
-├── setup.sh                  # Script to set up venv using pyenv
-└── assignments/
-    └── assignment1.ipynb     # Course notebooks
-```
-
----
-
-## 🐳 Optional: Running via Docker
-
-If you'd rather use Docker for full isolation:
+If you want a completely isolated environment (recommended for advanced users or teaching assistants):
 
 ```bash
 docker build -t ml-course-yuri .
 docker run -it -p 8888:8888 ml-course-yuri
 ```
 
-Once launched, open the printed Jupyter link (with token) in your browser.
+After launching, Jupyter will print a URL with a token that you can copy into your browser.
 
 ---
 
 ## Notes
 
-- If using an M1/M2/M3 Mac, `tensorflow` may need to be swapped with `tensorflow-macos` for compatibility.
-- All dependencies are listed in `requirements.txt`. You can modify or update them if needed.
+- Save your work inside the `assignments/` folder.
+- Python 3.10.12 is the required version for this course environment.
+- If you are using a Mac with an M1, M2, or M3 chip, you may need to replace `tensorflow` with `tensorflow-macos` in `requirements.txt`.
 
 ---
 
-## Virtual Environment Activation
-
-To activate the environment in the future:
+## Reactivating Your Environment Later
 
 ```bash
-source ml_25/bin/activate  # if using venv
-conda activate ml_25       # if using conda
+# If you used conda
+conda activate ml_25
+
+# If you used pyenv + venv
+source ml_25/bin/activate  # (macOS)
+ml_25\Scripts\activate     # (Windows)
 ```
