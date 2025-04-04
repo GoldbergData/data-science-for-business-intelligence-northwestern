@@ -1,10 +1,11 @@
 # Ignore Jupyter Notebook checkpoints
 **/.ipynb_checkpoints/
 
-# Ignore everything in the assignments directory
+# Ignore all contents of the assignments directory
 assignments/**
 
-# Except notebooks named exactly 'assignment.ipynb' in any subfolder of assignments
+# But do NOT ignore any file named 'assignment.ipynb' inside any subdirectory
+!assignments/**/
 !assignments/**/assignment.ipynb
 
 # Ignore virtual environments
